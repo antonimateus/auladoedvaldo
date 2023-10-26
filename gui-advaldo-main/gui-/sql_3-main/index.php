@@ -41,6 +41,19 @@ if(!empty($sql)){
         echo  mysqli_error($conexao);
     }
 }
+$selecionar = $_get["id"];
+
+if(! empetry($selecionado)){
+    $sql_selecionado = "select *from funcionarios
+        where id = $selecionado";
+        $resultado =mymysqli_query($conexao, $sql_resultado); 
+
+while($linha = mysql_fetch_assoc($resultado)){
+    $id = $linha["id"];
+    $nome = $lnha["nome"];
+    $cpf = $linha["cpf"];
+}
+}
 
 //echo $id." ".$nome." ".$cpf." ".$botao;
 
@@ -51,9 +64,9 @@ if(!empty($sql)){
     <body>
     <form name = "func" method = "post" >
         <label>ID</label>
-        <input type ="text" name = "id" /><br />
+        <input type ="text" name = "id value="<?php echo $id; ?> /><br />
         <label>Nome</label>
-        <input type ="text" name = "nome" /><br />
+        <input type ="text" name = "nome value="<?php echo $nome; ?>/><br />
         <label>CPF</label>
         <input type ="text" name = "cpf" /><br />
         <input type ="submit" name = "botao" value = "Cadastrar" />
@@ -61,8 +74,26 @@ if(!empty($sql)){
     </form>
     <table>
         <tr>
-            <td>-</td><td>id</td><td>nome</td><td>cpf</td>
+            <td>-</td>
+            <td>id</td>
+            <td>nome</td>
+            <td>cpf</td>
 </tr>
+<?php
+$sql_mostra_cad = "select * from funcionarios order by id desc limit 0,10";
+$resultado =mymysqli_query($conexao, $sql_mostra_cad); 
+
+while($linha = mysql_fetch_assoc($resultado)){
+    echo "     <tr>
+    <td>
+    <a href='?id=".$linha["id"]."'>selecionar</a>
+    </td>
+    <td>".$linha["id"]."</td>
+    <td>".$linha["nome"]."</td>
+    <td>".$linha["cpf"]."</td>
+</tr>";
+}
+?>
 </table>
         </body>
 </html>
