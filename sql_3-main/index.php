@@ -1,11 +1,11 @@
 <?php
-//SISTEMINHA C.E.R.A 
+
 /*aqui vamos conectar 
 com o banco 
 de dados*/
 $servername = "localhost";
 //você deu nome ao banco de dados
-$database = "func2d"; //func2c ou func2d
+$database = "func2ccc"; //func2c ou func2d
 $username = "root";
 $password = "";
 
@@ -15,7 +15,7 @@ $conexao = mysqli_connect(
 );
 
 if (!$conexao){
-    die("Falha na conexão".mysqli_connect_error());
+    die("Falha na conexão por favor tente novamente".mysqli_connect_error());
 }
 //echo "conectado com sucesso";
 
@@ -35,16 +35,16 @@ if(empty($botao)){
     $sql = "DELETE FROM funcionarios WHERE id = '$id'";
 }else if($botao == "Recuperar"){
     $sql_mostra_cad = "SELECT * FROM funcionarios WHERE nome like '%$pesquisa%'";
-}else if ($botao == "alterar"){
-    $sql = "UPDATE funcionarios SET  nome = '$nome', cpf = '$cpf' WHERE id = '$id'";
+}else if($botao == "Alterar"){
+    $sql = "UPDATE funcionarios SET nome = '$nome', cpf = '$cpf' WHERE id = $id";
 }
 
 //aqui vou tratar erros nas operações C.E.R.A
 if(!empty($sql)){
     if(mysqli_query($conexao, $sql)){
-        echo "Operação realizada com sucesso";
+        echo "parabens operação realizada com sucesso";
     }else{
-        echo "Houve um erro na operação: <br />";
+        echo "Houve um erro na operação por favor tente novamente: <br />";
         echo  mysqli_error($conexao);
     }
 }
@@ -62,16 +62,17 @@ if(!empty($selecionado)){
         $cpf = $linha["cpf"];
     }                      
 }
-
-
-
 ?>
 <html>
+    <head>
+        <title>Sistema C.E.R.A.</title>
+    </head>
     <body>
+
     <form name = "func" method = "post" >
         <label>ID</label>
-        <input type ="text" name = "idi" value="<?php echo $id; ?>" disabled/><br />
-        <input type ="hidden" name = "id" value="<?php echo $id; ?>" disabled/>
+        <input type ="text" name = "idi" value="<?php echo $id; ?>" disabled /><br />
+        <input type ="hidden" name = "id" value="<?php echo $id; ?>"/><br />
         <label>Nome</label>
         <input type ="text" name = "nome" value="<?php echo $nome; ?>"/><br />
         <label>CPF</label>
@@ -81,7 +82,7 @@ if(!empty($selecionado)){
         <br />
         <input type="text" name = "pesquisa" />
         <input type="submit" name = "botao" value = "Recuperar" />
-        <input type="submit" name = "botao" value = "alterar" />
+        <input type="submit" name = "botao" value = "Alterar" />
     </form>
     <table>
         <tr>
